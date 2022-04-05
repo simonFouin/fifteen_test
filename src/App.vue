@@ -1,6 +1,11 @@
 <template>
-  <main font-sans p="x-4 y-10" text="center gray-700 dark:gray-200">
-    <router-view />
-    <Footer />
+  <main>
+    <FMap :centre="mapCenter" />
   </main>
 </template>
+
+<script setup lang="ts">
+import FMap from "@/components/FMap.vue";
+
+const mapCenter = { lat: 48.864716, lng: 2.349014 };
+</script>
