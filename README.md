@@ -22,12 +22,12 @@ At Fifteen, we develop internal web apps in Vue, used to visualize and manage ou
 
 ### Mission
 
-Your mission is to develop a basic web app on which you fetch and display bikes on a map based on Mapbox. A developer has already started to develop a small POC but he did not have much time to continue. You need to follow up his work and add some features to it. The developer may have done things in a questionable way, and may have missed some type issues. You are asked to clean the type errors and challenge the existing code. Then you are asked to add new features. Even if it is in beta, your team wants you to use Vuetify 3 😉. You are also asked to use the composition API only, script setup, and Typescript. The manager has left you with specific tasks to handle:
+Your mission is to develop a basic web app on which you fetch and display bikes on a map based on Mapbox. A developer has already started to develop a small POC but he did not have much time to continue. You need to follow up his work and add some features to it. The developer may have done things in a questionable way, and may have missed some type issues. You are asked to clean the type errors and challenge the existing code. Then you are asked to add new features. Even if it is in beta, your team wants you to use Vuetify 3 😉. You are also asked to use the composition API only, script setup, and Typescript. You are free to use the CSS preprocessor of your choice. The manager has left you with specific tasks to handle:
 
 ### Required tasks
 
 - Install Vuetify 3 beta.
-- Write your own styles: **do not** use any Vuetify’s CSS utility class nor anything such as Tailwind, etc.
+- Write your own styles whenever possible: **do not** use utility class frameworks such as Tailwind, unoCSS, etc.
 - Develop a composable to toggle dark theme on the app.
 - Fetch bikes from the API and display them on the map. Find a relevant way to display the bike’s state.
 - These bikes can be clicked to open more information on a Mapbox popup.
