@@ -7,8 +7,8 @@ Technical test for Web Developer position at <a href="https://fifteen.eu/">Fifte
 Based on [Vitesse Lite](https://github.com/antfu/vitesse-lite), we removed all the opinionated features.
 They still can be used wisely, against the developer choice.
 
-We kept the minimal vite starter with few tree updates, alongside **Vue 3**, **Typescript** and **VueUse**.
-We prefered `yarn` over `pnpm`.
+We kept the minimal Vite starter with few tree updates, alongside **Vue 3**, **Typescript** and **VueUse**.
+We preferred `yarn` over `pnpm`.
 
 ## Getting started
 
@@ -18,11 +18,11 @@ Clone this repository and run `yarn`. All the available commands are listed in `
 
 ### Context
 
-At Fifteen, we develop internal web apps in Vue, used to visualize and manage our bikes, trips, users and interact with our service – via our API – for support, operation and maintenance purposes. These web apps are used on desktop for support client, developers and admins and on mobile for technicians on the field. The key tool is a map which aims to display the position and state of our bikes.
+At Fifteen, we develop internal web apps in Vue, used to visualize and manage our bikes, trips, users and interact with our service – via our API – for support, operation, and maintenance purposes. These web apps are used on desktop for support client, developers, and admins and on mobile for technicians on the field. The key tool is a map which aims to display the position and state of our bikes.
 
 ### Mission
 
-Your mission is to develop a basic web app on which you fetch and display bikes on a map based on Mapbox. A developer has already started to develop a small POC but he did not have much time to continue. You need to follow up his work and add some features to it. The developer may have done things in a questionable way, and may have missed some type issues. You are asked to clean the type errors and challenge the existing code. Then you are asked to add new features. Even if it is in beta, your team wants you to use Vuetify 3 😉. You are also asked to use the composition API only, script setup, and Typescript. You are free to use the CSS preprocessor of your choice. The manager has left you with specific tasks to handle:
+Your mission is to develop a basic web app on which you fetch and display bikes on a map based on Mapbox. A developer has already started to develop a small POC, but he did not have much time to continue. You need to follow up his work and add some features to it. The developer may have done things questionable, and may have missed some typing issues. You are asked to clean the type errors and challenge the existing code. Then you are asked to add new features. Even if it is in beta, your team wants you to use Vuetify 3 😉. You are also asked to use the composition API only, script setup, and Typescript. You are free to use the CSS preprocessor of your choice. The manager has left you with specific tasks to handle:
 
 ### Required tasks
 
@@ -47,7 +47,7 @@ Besides adding anything that seems relevant to you, it would be appreciated if y
 
 ## Mapbox
 
-A Mapbox access token will be sent to yout by email. Use it by creating a `.env.local` file (see `.env.sample` file).
+A Mapbox access token will be sent to you by email. Use it by creating a `.env.local` file (see `.env.sample` file).
 
 ## API
 
@@ -57,7 +57,7 @@ For development purposes only, you can use `yarn gen` to generate bikes data in 
 ### Endpoint
 
 The API URL for your test will be **sent to you by email**.
-To interact with it you can use the following methods:
+To interact with it, you can use the following methods:
 ```
 GET    /bikes
 GET    /bikes/:id
@@ -85,7 +85,7 @@ And the `service_status` model is an enum:
 
 ## Discussion
 
-When the test is finished and delivered, we will discuss and challenge:
+When you finish and deliver the test, we will discuss and challenge:
 - The technological choices
 - The project architecture and underlying build processes
 - The code quality
