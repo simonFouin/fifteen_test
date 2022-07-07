@@ -3,12 +3,11 @@
     <v-app-bar color="primary">
       <v-app-bar-title>Fifteen</v-app-bar-title>
       <v-icon @click="toggleTheme()">
-        mdi-{{ theme.global.current.value.dark ? 'white-balance-sunny' : 'moon-waning-crescent' }}
+        mdi-{{ isDark ? 'white-balance-sunny' : 'moon-waning-crescent' }}
       </v-icon>
     </v-app-bar>
     <v-main>
       <FMap
-        :key="`map-key-with-theme-${theme.global.name.value}`"
         :center="mapCenter"
       />
     </v-main>
@@ -21,9 +20,10 @@ import { useTheme } from 'vuetify'
 import { LngLatLike } from "mapbox-gl";
 import FMap from '@/components/FMap.vue';
 
-const theme = useTheme()
+const theme = useTheme();
+const isDark = computed(() => theme.global.current.value.dark)
 const toggleTheme = () => {
-  theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark';
+  theme.global.name.value = isDark.value ? 'light' : 'dark';
 };
 
 const mapCenter: LngLatLike = { lat: 48.864716, lng: 2.349014 };
