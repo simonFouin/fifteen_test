@@ -1,30 +1,38 @@
 <template>
-  <v-app>
-    <v-app-bar color="primary">
-      <v-app-bar-title>Fifteen</v-app-bar-title>
-      <v-icon @click="toggleTheme()">
-        mdi-{{ isDark ? 'white-balance-sunny' : 'moon-waning-crescent' }}
-      </v-icon>
-    </v-app-bar>
-    <v-main>
-      <FMap
-        :center="mapCenter"
-      />
-    </v-main>
-  </v-app>
+  <VApp>
+    <VAppBar color="primary">
+      <VAppBarTitle class="app-bar--title">
+        <v-img :src="logo" class="app-bar--title-logo"/>
+      </VAppBarTitle>
+      <VIcon @click="toggleTheme()">
+        {{ themeIcon }}
+      </VIcon>
+    </VAppBar>
+    <VMain>
+      <FMap />
+    </VMain>
+  </VApp>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useTheme } from 'vuetify'
+import useDarkTheme from '@/composable/darkTheme';
 import { LngLatLike } from "mapbox-gl";
 import FMap from '@/components/FMap.vue';
+import logo from '@/assets/fifteen-logo-text.svg';
 
-const theme = useTheme();
-const isDark = computed(() => theme.global.current.value.dark)
-const toggleTheme = () => {
-  theme.global.name.value = isDark.value ? 'light' : 'dark';
-};
+const { themeIcon, toggleTheme } = useDarkTheme();
 
-const mapCenter: LngLatLike = { lat: 48.864716, lng: 2.349014 };
 </script>
+
+<style lang="scss" scoped>
+.app-bar--title {
+  height: 100%;
+  position: relative;
+}
+
+.app-bar--title-logo {
+  position: absolute;
+  width: 15%;
+}
+</style>

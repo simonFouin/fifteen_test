@@ -1,31 +1,29 @@
 <template>
-  <v-card>
+  <VCard>
     <template v-slot:title>
       <div class="popup-head popup-flex" :class="stateInfos.color">
-        <v-icon
+        <VIcon
           :title="bike.in_order ? ServiceStatus[bike.service_status] : 'maintenance'"
           class="popup-state">
           {{ stateInfos.icon }}
-        </v-icon>
+        </VIcon>
         <h3 class="popup-title">Bike {{ bike.serial_number }}</h3>
       </div>
     </template>
 
-    <v-card-text>
+    <VCardText>
       <div
         :title="`${bike.battery_level}%`"
         class="popup-battery popup-flex">
-        <v-icon>{{ batteryIcon }}</v-icon>
-        <v-progress-linear
+        <VIcon>{{ batteryIcon }}</VIcon>
+        <VProgressLinear
           :model-value="bike.battery_level"
-          background-color="pink lighten-3"
           :color="batteryColor"
           height="8"
-          striped
         />
       </div>
-    </v-card-text>
-  </v-card>
+    </VCardText>
+  </VCard>
 </template>
 
 <script lang="ts" setup>
@@ -35,22 +33,22 @@ import Bike, { ServiceStatus } from '@/interface/Bike';
 interface MapPopupProps {
   bike: Bike;
 }
-const { bike } = defineProps<MapPopupProps>();
+const props = defineProps<MapPopupProps>();
 
 const stateInfos = computed<{ color: string, icon: string }>(() => {
-  if (!bike.in_order) {
+  if (!props.bike.in_order) {
     return {
       color: 'red',
       icon: 'mdi-alert',
     };
   }
-  switch (bike.service_status) {
-    case 1:
+  switch (props.bike.service_status) {
+    case ServiceStatus.free:
       return {
       color: 'green',
       icon: 'mdi-comment-check',
     };
-    case 2:
+    case ServiceStatus.booked:
       return {
       color: 'orange',
       icon: 'mdi-lock',
@@ -64,14 +62,14 @@ const stateInfos = computed<{ color: string, icon: string }>(() => {
 });
 
 const batteryColor = computed(() => {
-  if (bike.battery_level > 70) {
+  if (props.bike.battery_level > 70) {
     return 'green';
   }
-  return bike.battery_level > 35 ? 'orange' : 'red';
+  return props.bike.battery_level > 35 ? 'orange' : 'red';
 });
 
 const batteryIcon = computed(() => {
-  const roundedBattery = Math.round( bike.battery_level / 10) * 10;
+  const roundedBattery = Math.round( props.bike.battery_level / 10) * 10;
   if (roundedBattery === 0) {
     return 'mdi-battery-outline';
   }

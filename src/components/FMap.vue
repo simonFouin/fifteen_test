@@ -1,53 +1,62 @@
 <template>
-  <div class="map-container" :key="`map-container-with-theme-${currentTheme}`">
-    <mapbox-map 
-      :accessToken="myAccessToken"
-      :mapStyle="currentTheme"
-      :center="center"
-      :zoom="9">
-      <mapbox-marker
-        v-for="bike in bikes"
-        :key="`marker-${bike.serial_number}`"
-        :lngLat="bike.coordinates.slice().reverse()">
-        <mapbox-popup>
-          <MapPopup :bike="bike"/>
-        </mapbox-popup>
-      </mapbox-marker>
-    </mapbox-map>
-  </div>
+  <div id="map" class="map-container"></div>
 </template>
 
 <script setup lang="ts">
-import { LngLatLike } from "mapbox-gl";
 import {
-  computed,
+  LngLatLike,
+  Map,
+} from "mapbox-gl";
+import {
   onMounted,
   ref,
+  watch,
 } from "vue";
 import Bike from '@/interface/Bike';
-import BikeApi from '@/services/BikeApi';
-import MapPopup from '@/components/MapPopup.vue';
-import { useTheme } from 'vuetify';
+import { getAllBike } from '@/services/BikeApi';
+import useDarkTheme from '@/composable/darkTheme';
+import useMapMarkers from '@/composable/mapMarkers';
+import { mapCenter } from '@/constants/mapInfos';
+import "mapbox-gl/dist/mapbox-gl.css";
 
 interface FMapProps {
   //  The map initial center coordinates
-  center: LngLatLike;
+  center?: LngLatLike;
 }
-const props = defineProps<FMapProps>();
+const props = withDefaults(defineProps<FMapProps>(), {
+  center: mapCenter,
+})
 
-const myAccessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
-const currentTheme = computed(() => {
-  return `${useTheme().global.name.value}-v10`;
-});
+const mapAccessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
-const bikes = ref([] as Bike[]);
+let map: Map;
+const bikes = ref<Bike[]>([]);
+const mapMarkers = useMapMarkers();
 
 onMounted(() => {
-  BikeApi.getAll().then((data) => {
-    if (data) {
-      bikes.value = data;
+  map = new Map({
+    accessToken: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
+    container: "map",
+    style: "mapbox://styles/mapbox/light-v10",
+    center: props.center,
+    zoom: 9,
+  });
+  mapMarkers.setMap(map);
+
+  // catch already in BikeApi file
+  getAllBike().then((bikesData) => {
+    if (bikesData) {
+      bikes.value = bikesData;
+      bikes.value.forEach((bike) => mapMarkers.buildMarkerAndPopup(bike));
     }
   });
+});
+
+const { themeName } = useDarkTheme();
+watch(themeName, () => {
+  if (map) {
+    map.setStyle(`mapbox://styles/mapbox/${themeName.value}-v10`);
+  }
 });
 </script>
 
@@ -62,5 +71,13 @@ onMounted(() => {
 
 :deep(.mapboxgl-popup-content) {
   padding: 0;
+}
+
+#popupcontainer {
+  height: 200px;
+  width: 100%;
+  z-index: 999;
+  background: blue;
+  position: absolute;
 }
 </style>

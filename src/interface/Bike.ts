@@ -9,11 +9,11 @@ export default interface Bike {
   serial_number: string
   coordinates: [number, number]
   in_order: boolean
-  service_status: number
+  service_status: ServiceStatus
   battery_level: number
 }
 
 export interface BikeResponse {
-  bikes: Bike[]
+  bikes: Array<Bike>
   total: number
 }

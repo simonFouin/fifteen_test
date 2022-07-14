@@ -1,12 +1,10 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import vuetify from './plugins/vuetify'
-import { loadFonts } from './plugins/webfontloader'
-import VueMapboxTs from "vue-mapbox-ts";
+import { createApp } from 'vue';
+import vuetify from './plugins/vuetify';
+import { loadFonts } from './plugins/webfontloader';
+import App from './App.vue';
 
-loadFonts()
+loadFonts();
 
 createApp(App)
   .use(vuetify)
-  .use(VueMapboxTs)
-  .mount('#app')
+  .mount('#app');
