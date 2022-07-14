@@ -4,7 +4,7 @@ import { computed } from 'vue';
 export default function useDarkTheme() {
   const theme = useTheme();
 
-  const isThemeDark = computed(() => theme.global.current.value.dark)
+  const isThemeDark = computed(() => theme.global.current.value.dark);
   const themeIcon = computed(() => {
     return isThemeDark.value ? 'mdi-white-balance-sunny' : 'mdi-moon-waning-crescent';
   });

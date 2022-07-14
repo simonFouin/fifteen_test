@@ -1,11 +1,11 @@
 import { AxiosResponse } from 'axios';
-import apiAxiosInstance from '@/services/ApiAxiosInstance'
+import apiAxiosInstance from '@/services/ApiAxiosInstance';
 import Bike, { BikeResponse } from '@/interface/Bike';
 
-const urlArgument = 'bikes'
+const urlArgument = 'bikes';
 const setupUrl = (...args: Array<string|number>) => {
   return `/${urlArgument}/${args.reduce((previous, next) => `${previous}/${next}/`, '')}`;
-}
+};
 
 export const postBike = async (data: unknown = {}) => {
   try {

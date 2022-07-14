@@ -3,7 +3,7 @@ import {
   Map,
   Marker,
   Popup,
-} from "mapbox-gl";
+} from 'mapbox-gl';
 import renderComponent from '@/services/renderComponent';
 import Bike from '@/interface/Bike';
 import MapPopup from '@/components/MapPopup.vue';
@@ -19,7 +19,7 @@ export default function useMapMarkers() {
   }> = [];
   
   const setMap = (mapInstance: Map) => {
-    map = mapInstance
+    map = mapInstance;
   };
 
   const buildMarkerAndPopup = (bike: Bike) => {
@@ -27,6 +27,7 @@ export default function useMapMarkers() {
       console.error('map is undefined: use method setMap(mapInstance: Map) to set the map');
       return;
     }
+
     const coordinates = bike.coordinates.slice().reverse() as [number, number];
     let popup: Popup;
   
@@ -66,5 +67,5 @@ export default function useMapMarkers() {
     markersAndPopups,
     setMap,
     buildMarkerAndPopup,
-  }
+  };
 }

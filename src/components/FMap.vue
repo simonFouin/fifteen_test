@@ -1,23 +1,26 @@
 <template>
-  <div id="map" class="map-container"></div>
+  <div
+    id="map"
+    class="map-container"
+  />
 </template>
 
 <script setup lang="ts">
 import {
   LngLatLike,
   Map,
-} from "mapbox-gl";
+} from 'mapbox-gl';
 import {
   onMounted,
   ref,
   watch,
-} from "vue";
+} from 'vue';
 import Bike from '@/interface/Bike';
 import { getAllBike } from '@/services/BikeApi';
 import useDarkTheme from '@/composable/darkTheme';
 import useMapMarkers from '@/composable/mapMarkers';
 import { mapCenter } from '@/constants/mapInfos';
-import "mapbox-gl/dist/mapbox-gl.css";
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 interface FMapProps {
   //  The map initial center coordinates
@@ -25,9 +28,7 @@ interface FMapProps {
 }
 const props = withDefaults(defineProps<FMapProps>(), {
   center: mapCenter,
-})
-
-const mapAccessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
+});
 
 let map: Map;
 const bikes = ref<Bike[]>([]);
@@ -36,8 +37,8 @@ const mapMarkers = useMapMarkers();
 onMounted(() => {
   map = new Map({
     accessToken: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
-    container: "map",
-    style: "mapbox://styles/mapbox/light-v10",
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v10',
     center: props.center,
     zoom: 9,
   });

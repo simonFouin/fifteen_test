@@ -2,7 +2,10 @@
   <VApp>
     <VAppBar color="primary">
       <VAppBarTitle class="app-bar--title">
-        <v-img :src="logo" class="app-bar--title-logo"/>
+        <v-img
+          :src="logo"
+          class="app-bar--title-logo"
+        />
       </VAppBarTitle>
       <VIcon @click="toggleTheme()">
         {{ themeIcon }}
@@ -15,9 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import useDarkTheme from '@/composable/darkTheme';
-import { LngLatLike } from "mapbox-gl";
 import FMap from '@/components/FMap.vue';
 import logo from '@/assets/fifteen-logo-text.svg';
 

@@ -1,20 +1,27 @@
 <template>
   <VCard>
-    <template v-slot:title>
-      <div class="popup-head popup-flex" :class="stateInfos.color">
+    <template #title>
+      <div
+        class="popup-head popup-flex"
+        :class="stateInfos.color"
+      >
         <VIcon
           :title="bike.in_order ? ServiceStatus[bike.service_status] : 'maintenance'"
-          class="popup-state">
+          class="popup-state"
+        >
           {{ stateInfos.icon }}
         </VIcon>
-        <h3 class="popup-title">Bike {{ bike.serial_number }}</h3>
+        <h3 class="popup-title">
+          Bike {{ bike.serial_number }}
+        </h3>
       </div>
     </template>
 
     <VCardText>
       <div
         :title="`${bike.battery_level}%`"
-        class="popup-battery popup-flex">
+        class="popup-battery popup-flex"
+      >
         <VIcon>{{ batteryIcon }}</VIcon>
         <VProgressLinear
           :model-value="bike.battery_level"
@@ -58,7 +65,7 @@ const stateInfos = computed<{ color: string, icon: string }>(() => {
       color: 'red',
       icon: 'mdi-bicycle',
     };
-  };
+  }
 });
 
 const batteryColor = computed(() => {
