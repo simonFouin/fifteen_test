@@ -9,8 +9,11 @@
 import {
   LngLatLike,
   Map,
+  Marker,
+  Popup,
 } from 'mapbox-gl';
 import {
+  getCurrentInstance,
   onMounted,
   ref,
   watch,
@@ -18,9 +21,10 @@ import {
 import Bike from '@/interface/Bike';
 import { getAllBike } from '@/services/BikeApi';
 import useDarkTheme from '@/composable/darkTheme';
-import useMapMarkers from '@/composable/mapMarkers';
+import renderComponent from '@/services/renderComponent';
 import { mapCenter } from '@/constants/mapInfos';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import MapPopup from '@/components/MapPopup.vue';
 
 interface FMapProps {
   //  The map initial center coordinates
@@ -30,9 +34,52 @@ const props = withDefaults(defineProps<FMapProps>(), {
   center: mapCenter,
 });
 
+
 let map: Map;
 const bikes = ref<Bike[]>([]);
-const mapMarkers = useMapMarkers();
+let destroyComp: () => void;
+const { appContext } = getCurrentInstance();
+const markersAndPopups: Array<{
+  bikeId: string
+  marker: Marker
+  popup: Popup
+}> = [];
+
+const buildMarkerAndPopup = (bike: Bike) => {
+  const coordinates = bike.coordinates.slice().reverse() as [number, number];
+  let popup: Popup;
+
+  // handle bike potential updates
+  const markerAndPopup = markersAndPopups.filter(marker => marker.bikeId === bike.id)[0];
+  if (markerAndPopup) {
+    popup = markerAndPopup.popup;
+    popup.setLngLat(coordinates);
+    markerAndPopup.marker.setLngLat(coordinates);
+  } else {
+    popup = new Popup({ closeButton: false })
+      .setLngLat(coordinates)
+      .setHTML('<div></div>');
+
+    markersAndPopups.push({
+      bikeId: bike.id,
+      marker: new Marker()
+        .setLngLat(coordinates)
+        .setPopup(popup)
+        .addTo(map),
+      popup,
+    });
+  }
+  
+  popup.on('open', () => {
+    destroyComp?.();
+    destroyComp = renderComponent({
+      el: popup.getElement(),
+      component: MapPopup,
+      props: { bike },
+      appContext,
+    });
+  });
+};
 
 onMounted(() => {
   map = new Map({
@@ -42,13 +89,12 @@ onMounted(() => {
     center: props.center,
     zoom: 9,
   });
-  mapMarkers.setMap(map);
 
   // catch already in BikeApi file
   getAllBike().then((bikesData) => {
     if (bikesData) {
       bikes.value = bikesData;
-      bikes.value.forEach((bike) => mapMarkers.buildMarkerAndPopup(bike));
+      bikes.value.forEach((bike) => buildMarkerAndPopup(bike));
     }
   });
 });
