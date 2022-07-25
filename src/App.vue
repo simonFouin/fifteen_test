@@ -27,13 +27,15 @@ const { themeIcon, toggleTheme } = useDarkTheme();
 </script>
 
 <style lang="scss" scoped>
-.app-bar--title {
-  height: 100%;
-  position: relative;
-}
+.app-bar{
+  &--title {
+    height: 100%;
+    position: relative;
+  }
 
-.app-bar--title-logo {
-  position: absolute;
-  width: 15%;
+  &--title-logo {
+    position: absolute;
+    width: 15%;
+  }
 }
 </style>

@@ -14,4 +14,9 @@ export default defineConfig({
   plugins: [
     Vue(),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: { additionalData: `@import "@/assets/styles/_main.scss";` },
+    },
+  },
 });

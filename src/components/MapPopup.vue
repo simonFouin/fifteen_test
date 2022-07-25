@@ -1,17 +1,17 @@
 <template>
-  <VCard>
+  <VCard class="popup--container">
     <template #title>
       <div
-        class="popup-head popup-flex"
+        class="popup--head popup--flex"
         :class="stateInfos.color"
       >
         <VIcon
           :title="bike.in_order ? ServiceStatus[bike.service_status] : 'maintenance'"
-          class="popup-state"
+          class="popup--state"
         >
           {{ stateInfos.icon }}
         </VIcon>
-        <h3 class="popup-title">
+        <h3 class="popup--title">
           Bike {{ bike.serial_number }}
         </h3>
       </div>
@@ -20,7 +20,7 @@
     <VCardText>
       <div
         :title="`${bike.battery_level}%`"
-        class="popup-battery popup-flex"
+        class="popup--battery popup--flex"
       >
         <VIcon>{{ batteryIcon }}</VIcon>
         <VProgressLinear
@@ -90,36 +90,48 @@ const batteryIcon = computed(() => {
   margin-bottom: 1rem;
 }
 
-.popup-flex {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.popup {
+  &--container {
+    pointer-events: auto;
+  }
+
+  &--flex {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &--head {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: white;
+    .mdi-bicycle {
+      &:before {
+        z-index: 2;
+      }
+      &:after {
+        position: absolute;
+        content: "\00d7";
+        font-size: 2.5rem;
+        opacity: 0.7;
+        z-index: 1;
+      }
+    }
+
+    &.green {
+      @extend .fif-background-green;
+    }
+    &.orange {
+      @extend .fif-background-orange;
+    }
+    &.red {
+      @extend .fif-background-red;
+    }
+  }
+
+  &--edit-btn {
+    @extend .fif-background-orange, .fif-text-white;
+  }
+
 }
-
-.popup-head {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  color: white;
-  .mdi-bicycle::before {
-    z-index: 2;
-  }
-  .mdi-bicycle:after {
-    position: absolute;
-    content: "\00d7";
-    font-size: 2.5rem;
-    opacity: 0.7;
-    z-index: 1;
-  }
-
-  &.green {
-    background-color: green;
-  }
-  &.orange {
-    background-color: orange;
-  }
-  &.red {
-    background-color: red;
-  }
-}
-
 </style>

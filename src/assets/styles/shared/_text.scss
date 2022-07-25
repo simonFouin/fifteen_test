@@ -1,0 +1,5 @@
+@each $name, $hexa in $fif-colors {
+  .fif-text-#{$name} {
+    color: $hexa;
+  }
+}

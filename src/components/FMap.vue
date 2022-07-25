@@ -109,22 +109,10 @@ watch(themeName, () => {
 
 <style lang="scss" scoped>
 .map-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right:0;
+  @extend .inset-0--absolute;
 }
 
 :deep(.mapboxgl-popup-content) {
   padding: 0;
-}
-
-#popupcontainer {
-  height: 200px;
-  width: 100%;
-  z-index: 999;
-  background: blue;
-  position: absolute;
 }
 </style>
