@@ -1,6 +1,6 @@
 import renderComponent from '@/services/renderComponent';
 import { Component, getCurrentInstance, onBeforeUnmount } from 'vue';
-import ModalBase from '@/components/ModalBase.vue';
+import ModalContainer from '@/components/ModalContainer.vue';
 
 export default function useModal() {
   const element = document.getElementById('modal');
@@ -12,7 +12,7 @@ export default function useModal() {
     destroyModal?.();
     destroyModal = renderComponent({
       el: element as HTMLElement,
-      component: ModalBase,
+      component: ModalContainer,
       props: {
         component,
         componentProps: props,

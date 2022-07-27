@@ -33,16 +33,16 @@
 
     <VCardActions>
       <VBtn
-        class="popup--edit-btn"
+        class="popup--btn popup--btn--edit"
         @click="openEditModal()"
       >
         Edit
       </VBtn>
-      <v-btn
-        color="warning"
+      <VBtn
+        class="popup--btn popup--btn--delete"
       >
-        Normal Button
-      </v-btn>
+        Delete
+      </VBtn>
     </VCardActions>
   </VCard>
 </template>
@@ -51,7 +51,6 @@
 import { computed } from 'vue';
 import Bike, { ServiceStatus } from '@/interface/Bike';
 import useModal from '@/composable/modal';
-import useBatteryColor from '@/composable/batteryColor';
 import EditBikeModal from '@/components/EditBikeModal.vue';
 
 interface MapPopupProps {
@@ -100,7 +99,7 @@ const batteryIcon = computed(() => {
 
 const { renderModal } = useModal();
 const openEditModal = () => renderModal(
-  EditBikeModal, { title: 'test' , bike: props.bike }
+  EditBikeModal, { bike: props.bike }
 );
 </script>
 
@@ -145,6 +144,17 @@ const openEditModal = () => renderModal(
       @extend .fif-background-orange;
     }
     &.red {
+      @extend .fif-background-red;
+    }
+  }
+
+  &--btn {
+    @extend .fif-text-white;
+    flex: 0 1 50%;
+    &--edit {
+      @extend .fif-background-orange;
+    }
+    &--delete {
       @extend .fif-background-red;
     }
   }

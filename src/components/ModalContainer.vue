@@ -21,7 +21,6 @@
 import { ref } from 'vue';
 
 interface MapPopupProps {
-  title?: string
   component: unknown // Componenent type
   componentProps: { [x: string]: unknown }
 }
