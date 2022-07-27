@@ -1,6 +1,19 @@
 $fif-colors: (
+  "primary": #FF0062,
+  "secondary": #4FAEC1,
+  "tertiary": #012433,
   "white": #fff,
   "green": #00A42B,
   "orange": #FF8E2B,
   "red": #D7270A,
 );
+
+:export { 
+  primary: #FF0062;
+  secondary: #4FAEC1;
+  tertiary: #012433;
+  white: #fff;
+  green: #00A42B;
+  orange: #FF8E2B;
+  red: #D7270A;
+};

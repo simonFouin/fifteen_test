@@ -30,15 +30,32 @@
         />
       </div>
     </VCardText>
+
+    <VCardActions>
+      <VBtn
+        class="popup--edit-btn"
+        @click="openEditModal()"
+      >
+        Edit
+      </VBtn>
+      <v-btn
+        color="warning"
+      >
+        Normal Button
+      </v-btn>
+    </VCardActions>
   </VCard>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 import Bike, { ServiceStatus } from '@/interface/Bike';
+import useModal from '@/composable/modal';
+import useBatteryColor from '@/composable/batteryColor';
+import EditBikeModal from '@/components/EditBikeModal.vue';
 
 interface MapPopupProps {
-  bike: Bike;
+  bike: Bike
 }
 const props = defineProps<MapPopupProps>();
 
@@ -69,19 +86,22 @@ const stateInfos = computed<{ color: string, icon: string }>(() => {
 });
 
 const batteryColor = computed(() => {
-  if (props.bike.battery_level > 70) {
-    return 'green';
-  }
-  return props.bike.battery_level > 35 ? 'orange' : 'red';
+  if (props.bike.battery_level > 70) return 'green';
+  if (props.bike.battery_level > 35) return 'orange';
+  return 'red';
 });
 
 const batteryIcon = computed(() => {
   const roundedBattery = Math.round( props.bike.battery_level / 10) * 10;
-  if (roundedBattery === 0) {
-    return 'mdi-battery-outline';
-  }
-  return roundedBattery >= 100 ? 'mdi-battery' : `mdi-battery-${roundedBattery}`;
+  if (roundedBattery === 0) return 'mdi-battery-outline';
+  if (roundedBattery >= 100) return  'mdi-battery';
+  return `mdi-battery-${roundedBattery}`;
 });
+
+const { renderModal } = useModal();
+const openEditModal = () => renderModal(
+  EditBikeModal, { title: 'test' , bike: props.bike }
+);
 </script>
 
 <style lang="scss" scoped>
@@ -128,10 +148,5 @@ const batteryIcon = computed(() => {
       @extend .fif-background-red;
     }
   }
-
-  &--edit-btn {
-    @extend .fif-background-orange, .fif-text-white;
-  }
-
 }
 </style>

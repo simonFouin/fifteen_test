@@ -34,7 +34,6 @@ const props = withDefaults(defineProps<FMapProps>(), {
   center: mapCenter,
 });
 
-
 let map: Map;
 const bikes = ref<Bike[]>([]);
 let destroyComp: () => void;
