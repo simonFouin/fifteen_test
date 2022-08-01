@@ -1,6 +1,6 @@
 import renderComponent from '@/services/renderComponent';
 import { Component, getCurrentInstance, onBeforeUnmount } from 'vue';
-import ModalContainer from '@/components/ModalContainer.vue';
+import ModalContainer from '@/components/Modal/ModalContainer.vue';
 
 export default function useModal() {
   const element = document.getElementById('modal');

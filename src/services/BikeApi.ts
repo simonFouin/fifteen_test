@@ -4,7 +4,7 @@ import Bike, { BikeResponse } from '@/interface/Bike';
 
 const urlArgument = 'bikes';
 const setupUrl = (...args: Array<string|number>) => {
-  return `/${urlArgument}/${args.reduce((previous, next) => `${previous}/${next}/`, '')}`;
+  return `/${urlArgument}${args.reduce((previous, next) => `${previous}/${next}`, '')}`;
 };
 
 export const postBike = async (data: unknown = {}) => {

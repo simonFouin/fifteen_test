@@ -40,6 +40,7 @@
       </VBtn>
       <VBtn
         class="popup--btn popup--btn--delete"
+        @click="openRemoveModal()"
       >
         Delete
       </VBtn>
@@ -51,7 +52,8 @@
 import { computed } from 'vue';
 import Bike, { ServiceStatus } from '@/interface/Bike';
 import useModal from '@/composable/modal';
-import EditBikeModal from '@/components/EditBikeModal.vue';
+import EditBikeModal from '@/components/Modal/EditBikeModal.vue';
+import DeleteBikeModal from '@/components/Modal/DeleteBikeModal.vue';
 
 interface MapPopupProps {
   bike: Bike
@@ -100,6 +102,10 @@ const batteryIcon = computed(() => {
 const { renderModal } = useModal();
 const openEditModal = () => renderModal(
   EditBikeModal, { bike: props.bike }
+);
+
+const openRemoveModal = () => renderModal(
+  DeleteBikeModal, { bike: props.bike }
 );
 </script>
 

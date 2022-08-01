@@ -115,7 +115,7 @@
 import { computed, ref } from 'vue';
 import Bike, { ServiceStatus } from '@/interface/Bike';
 import { putBike } from '@/services/BikeApi';
-import ModalLayout from '@/components/ModalLayout.vue';
+import ModalLayout from '@/components/Modal/ModalLayout.vue';
 
 interface MapPopupProps {
   bike: Bike
@@ -141,17 +141,6 @@ const validate = () => {
 </script>
 
 <style lang="scss" scoped>
-.modal {
-  &--card {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
-  }
-  &--head {
-    @extend .fif-background-secondary, .fif-text-white;
-  }
-}
-
 .edit-form {
   &--battery {
     &--section {
